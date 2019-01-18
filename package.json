@@ -20,7 +20,7 @@
   "scripts": {
     "build": "npm run build:zepto && npm run build:bcrypt",
     "build:bcrypt": "cp ./node_modules/bcryptjs/dist/bcrypt.min.js ./extension/js/bcrypt.js",
-    "build:zepto": "cp ./node_modules/zepto/zepto.min.js ./extension/js/zepto.js",
+    "build:zepto": "cp ./node_modules/zepto/dist/zepto.min.js ./extension/js/zepto.js",
     "release": "git describe --tags --exact-match && npm run build && npm run version && npm run package && npm run chromestore",
     "version": "json -f ./extension/manifest.json -IAe \"this.version='$(git describe --tags --exact-match)'\"",
     "package": "zip -0vr extension.zip extension",
@@ -45,6 +45,6 @@
     "karma-chai": "^0.1.0",
     "karma-sinon": "^1.0.4",
     "travis-after-all": "^1.4.4",
-    "zepto": "^1.0.1"
+    "zepto": "^1.2.0"
   }
 }

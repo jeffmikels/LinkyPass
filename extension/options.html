@@ -20,6 +20,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>Check stored</th>
                     <th>Stealth password</th>
                     <th>Length</th>
@@ -36,10 +37,21 @@
             <h2>Create new password profile</h2>
 
             <label class="fld fld-input">
-                <i class="ic ic-name"></i>
+                <i class="ic ic-type"></i>
                 <input id="name" type="text" value="" placeholder="Profile name" autofocus="autofocus">
                 <p class="hint">
                     Give this password profile an easily recognisable name
+                </p>
+            </label>
+
+            <label class="fld fld-input">
+                <i class="ic ic-type"></i>
+                <select id="type">
+                    <option value="SGP" selected="selected">SuperGenPass Default</option>
+                    <option value="SGPP">SuperGenPass with Punctuation</option>
+                </select>
+                <p class="hint">
+                    Select the password generator type.
                 </p>
             </label>
 

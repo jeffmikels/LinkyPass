@@ -1,33 +1,21 @@
 {
-  "name": "LinkyPass",
+  "name": "LinkyPass+",
   "description": "Generate secure passwords unique to each website you visit",
   "manifest_version": 2,
   "options_page": "options.html",
-  "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*",
-    "storage"
-  ],
+  "permissions": ["tabs", "http://*/*", "https://*/*", "storage"],
   "browser_action": {
-    "default_title": "LinkyPass",
+    "default_title": "LinkyPass+",
     "default_icon": "icon_19.png",
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": [
-      "js/background.js"
-    ]
+    "scripts": ["js/background.js"]
   },
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "js/content.js"
-      ],
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/content.js"],
       "all_frames": true
     }
   ],
@@ -44,5 +32,5 @@
     "19": "icon_19.png",
     "128": "icon_128.png"
   },
-  "version": "2.1.0"
+  "version": "3.0.0"
 }
