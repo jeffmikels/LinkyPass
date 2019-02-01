@@ -156,16 +156,19 @@
     return unescape(encodeURIComponent(str));
   }
 
-  function gp2_generate_passwd(Passwd, Len) {
+  function gp2_generate_passwd(Passwd, Len, UsePunctuation) {
     var i = 0;
     while (i < 10 || !gp2_check_passwd(Passwd.substring(0, Len))) {
       Passwd = b64_md5(Passwd);
+      if (UsePunctuation) Passwd = _add_punctuation(Passwd.substring(0, Len));
+      // _log(Passwd);
       i++;
     }
     return Passwd.substring(0, Len);
   }
 
   function gp2_check_passwd(Passwd) {
+    // must begin with lowercase, contain uppercase and digit
     return Passwd.search(/[a-z]/) === 0 &&
       Passwd.search(/[0-9]/) > 0 &&
       Passwd.search(/[A-Z]/) > 0
@@ -195,7 +198,9 @@
     var total = 0;
     for (let i = 0; i < pass.length; i++) {
       total += pass.charCodeAt(i);
+      // _log(pass.charCodeAt(i));
     }
+    // _log(total);
 
     var replacement_index = total % pass.length;
     var replacement_char = punct_table[total % punct_table.length];
@@ -203,22 +208,24 @@
     var tail = pass.substr(replacement_index + 1); // returns empty string if replacement_index > pass.length
     return head + replacement_char + tail;
   }
-
+  function _log(s) {
+    chrome.extension.getBackgroundPage().console.log(s);
+  }
   function SGPLocal(pass, domain, length) {
     if (pass && domain) {
-      return gp2_generate_passwd(pass + ":" + domain, length);
+      return gp2_generate_passwd(pass + ":" + domain, length, false);
     }
     return pass;
   }
 
-  function SGPLocal2(pass, domain, length) {
+  function SGPPLocal(pass, domain, length) {
     if (pass && domain) {
-      pass = gp2_generate_passwd(pass + ":" + domain, length);
-      pass = _add_punctuation(pass);
+      pass = gp2_generate_passwd(pass + ":" + domain, length, true);
+      // pass = _add_punctuation(pass);
     }
     return pass;
   }
 
   window.SGP = SGPLocal;
-  window.SGPP = SGPLocal2;
+  window.SGPP = SGPPLocal;
 })();
